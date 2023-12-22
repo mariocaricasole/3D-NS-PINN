@@ -17,7 +17,7 @@ class PeriodicWeights(keras.initializers.Initializer):
         tensor = tf.reshape(kVec, [shape[0], shape[1]])
         return tensor
 
-#define a periodic layer using the cosine as activation and a time-varying phase, defined with trainable parameters
+#define a periodic layer using the cosine as activation and a fixed phase, defined with trainable parameters
 class Periodic(keras.layers.Layer):
     def __init__(self, freqs=16, input_dim=4):
         super().__init__()
@@ -29,7 +29,7 @@ class Periodic(keras.layers.Layer):
     def call(self,inputs):
         return tf.cos(2*np.pi*tf.matmul(inputs,self.w) + self.b)
 
-#define time dependent amplitude model
+#define fixed amplitudes model
 model = Sequential(
     [
         Periodic(20,3),
